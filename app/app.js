@@ -1,20 +1,19 @@
-// express
+// 기본
 const express = require("express");
 const app = express();
-app.use(express.json());
-
-// middleware
 const path = require("path");
-
-// view engine : ejs
+// 뷰 엔진
 const ejs = require("ejs");
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", "./views"); // views 경로 지정
+// 미들웨어
 
-// Routes
-const index_router = require("./routes/index.route")
-app.use("/", index_router)
-// static files
+// 라우터
+const index = require("./routes/index.route");
+app.use("/", index);
+
+// 정적 파일 제공
+// path.join 사용시 하위 폴더 포함에서 모두 제공
 app.use(express.static(path.join(__dirname, "views")));
 
 module.exports = app;
